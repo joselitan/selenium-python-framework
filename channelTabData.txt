@@ -1,0 +1,4 @@
+packageName,TabName
+Premium,Viaplay
+Premium,Playtjänster
+Premium,Tv-kanaler
