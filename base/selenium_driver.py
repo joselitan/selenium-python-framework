@@ -115,7 +115,7 @@ class SeleniumDriver():
             self.log.info("Element not with Attribute: " + locator + " and locatorType: " + locatorType)
         return element.get_attribute("class")
 
-    def get_list_element(self, locator, locatorType="id"):
+    def getElementList(self, locator, locatorType="id"):
         element_list = []
         try:
             locatorType = locatorType.lower()
@@ -270,6 +270,38 @@ class SeleniumDriver():
         except:
             self.log.info("Element not found with locator: " + locator + " locatorType: " + locatorType)
             print_stack()
+
+    def switchFrameByIndex(self, locator, locatorType="xpath"):
+        """
+        Get iframe index using element locator inside iframe
+
+        Parameters:
+            1. Required:
+                locator - locator of the element
+            2. Optional.
+                locatorType - locatorType to find the element
+        Returns:
+            index of iframe
+        Exception:
+            None
+        """
+        result = None
+        try:
+            iframe_list = self.getElementList("//iframe", locatorType="xpath")
+            self.log.info("Length of iframe list:")
+            self.log.info(str(len(iframe_list)))
+            for i in range(len(iframe_list)):
+                self.switchToFrame(index=iframe_list)
+                result = self.isElementPresent(locator, locatorType)
+                if result:
+                    self.log.info("iframe index is: ")
+                    self.log.info(str(i))
+                    break
+                self.switchToDefaultContent()
+                return result
+        except:
+            self.log.info("iFrame index not found")
+            return result
 
     def switchToFrame(self, id="", name="", index=None):
         """
