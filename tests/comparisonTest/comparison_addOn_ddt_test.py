@@ -25,6 +25,8 @@ class ComparisonTests(unittest.TestCase):
         self.cp.navigateAddonSection(section)
         result = self.cp.verify_page_title(title)
         self.ts.mark(result, "confirming title")
+        #self.ts.markFinal(self.test_comparison_addon_section.__name__, result, "page title confirmed")
+
         self.driver.back()
 
     # @pytest.mark.run(order=2)
