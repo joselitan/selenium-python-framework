@@ -320,11 +320,14 @@ class SeleniumDriver():
             None
         """
         if id:
-            self.driver.switch_to_frame(id)
+            self.driver.switch_to.frame(id)
+            self.log.info("switched to iframe")
         elif name:
             self.driver.switch_to_frame(name)
+            self.log.info("switched to iframe")
         else:
             self.driver.swtich_to_frame(index)
+            self.log.info("switched to iframe")
 
     def switchToDefaultContent(self):
         """

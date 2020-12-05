@@ -28,6 +28,11 @@ class ForgotResetPassword(unittest.TestCase):
 
     @pytest.mark.run(order=2)
     def test_get_activation_mail(self):
-        #self.mp.enter_forgot_password("sigmatest_st01_se_82609197@mailinator.com")
+
         self.mp.enter_forgot_password("sigmatest_st01_se_82609197@mailinator.com")
-        #self.fpp.request_new_password("test4@mailinator.com")
+
+    @pytest.mark.run(order=3)
+    def test_reset_password(self):
+        self.fpp.enter_new_password(password="test1234", confirmPassword="test1234")
+        result = self.fpp.validate_success_msg("Ditt lösenord har återställts. Nu kan du logga in.")
+        self.ts.markFinal("test_reset_password", result, "final test was successful")
