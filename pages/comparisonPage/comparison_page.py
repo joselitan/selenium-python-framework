@@ -7,9 +7,10 @@ class ComparisonPage(BasePage):
 
     log = cl.customLogger(logging.DEBUG)
 
-    def __init__(self, driver):
+    def __init__(self, driver, container):
         super().__init__(driver)
         self.driver = driver
+        self.container = container
 
     # Locators package button
     _package_button = ".//button//comparison-package//h1[contains(text(),'{0}')]"
@@ -21,6 +22,8 @@ class ComparisonPage(BasePage):
     _package_list_h1 = ".//mat-button-toggle-group//button//h1[contains(text(), '{}')]"
     _show_more_button = ".//h1[contains(text(),'{}')]/parent::div/following-sibling::div//button"
     _show_package_button = ".//div[@class='comparison-package-description']/h1[contains(text(),'{}')]/following-sibling::div/following-sibling::div//comparison-button"
+
+    _comparison_package_button = ".//div[@class='comparison-packages-wrapper']//button"
 
     # Locators tabs
     _comparison_tab = ".//comparison-tabs-filters//button[contains(@class,'comparison-tab-button')]"
@@ -85,6 +88,16 @@ class ComparisonPage(BasePage):
             list_clickable_tabs.append(tab.text)
         return list_clickable_tabs[::-1]
 
+    def retrieve_package_buttons(self):
+        """
+        :return: list of all clickable comparison package buttons
+        """
+        list_clickable_packages = []
+        clickable_packages = self.getElements(self._comparison_package_button, locatorType="xpath")
+        for packages in clickable_packages:
+            list_clickable_packages.append(packages.text)
+        return list_clickable_packages
+
     def getClickableChannels(self):
         """
         :return: list of clickable channels
@@ -141,7 +154,7 @@ class ComparisonPage(BasePage):
             assert self.isElementDisplayed(self._comparison_channel_description, locatorType="xpath") == True
         self.scrollIntoView(self._comparison_title, locatorType="xpath")
 
-    def GoToPackageAndTab(self, package, tab):
+    def  GoToPackageAndTab(self, package, tab):
         self.clickPackageButton(package)
         self.clickTvTabChannel(tab)
 
@@ -161,9 +174,7 @@ class ComparisonPage(BasePage):
         self.clickOnAddonTab(name)
 
     def navigatePackageSection(self, name):
-
         self.clickOnPackageButton(name)
-        #self.util.sleep(2, info="sleeping time")
 
 
     ######Validation########

@@ -25,6 +25,7 @@ class LoginPage(BasePage):
     _password_required = ".//mat-error[@class='mat-error ng-tns-c93-17 ng-star-inserted']"
     _mat_error = "//mat-error[@id='mat-error-2']"
     _email_password_list = ".//form/div/mat-form-field/div/div/following-sibling::div/following-sibling::div/div/mat-error"
+    _forgot_password = ".//u[starts-with(text(),'Har du glömt ditt lösenord')]/parent::a"
 
     ##### Element calls
 
@@ -75,12 +76,6 @@ class LoginPage(BasePage):
         self.backspacePassword()
         sleep(3)
 
-    # def clearfields(self):
-    #     emailField = self.getElement(self._email_field, locatorType="xpath")
-    #     emailField.clear()
-    #     passwordField = self.getElement(self._password_field, locatorType="xpath")
-    #     passwordField.clear()
-
     ##### Validation
 
     def verifyLoginSuccessful(self):
@@ -108,11 +103,14 @@ class LoginPage(BasePage):
         return self.verifyPageContainsText(result, "E-postadressen måste vara giltig")
 
     def return_attribute(self):
-        #message_attribute = self.getElement(self._email_password_list, locatorType="xpath")
         message_attribute = self.driver.find_elements_by_xpath( ".//form/div/mat-form-field/div/div/following-sibling::div/following-sibling::div/div/mat-error")
-
         for row in message_attribute:
             print(row.get_attribute("class"))
+
+    def verify_forgot_msg(self, text):
+        error_msg = self.getElement(self._forgot_password, locatorType="xpath").text
+        result = self.verifyPageContainsText(error_msg, text)
+        return result
 
 
 

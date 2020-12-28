@@ -65,3 +65,19 @@ class BasePage(SeleniumDriver):
             self.log.error("Failed to get match text")
             print_stack()
             return False
+
+    def verifyMatchingNumbers(self, actualNumber, numberToVerify):
+        """
+        :param actualNumber:
+        :param numberToVerify:
+        :return:
+        """
+        try:
+            actual = actualNumber
+            # print("verify Matching numbers: Actual", actual, "type", type(actual))
+            # print("verify Matching numbers: numberToVerify", numberToVerify, "type", type(numberToVerify))
+            return self.util.verifySumMatch(actual, numberToVerify)
+        except:
+            self.log.error("Failed to get match sum")
+            print_stack()
+            return False

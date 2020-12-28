@@ -11,8 +11,10 @@ class ForgotPasswordPage(BasePage):
         super().__init__(driver)
         self.driver = driver
 
+
     # locator
     _email_field = ".//input[@placeholder='E-postadress']"
+    _confirm_code = ".//input[@placeholder='Bekräftelsekod']"
     _password = ".//input[@placeholder='Lösenordet behöver vara minst 8 tecken långt, varav minst 1 siffra']"
     _confirm_password = ".//input[@placeholder='Bekräfta lösenord']"
     _page_title = ".//h1"
@@ -32,6 +34,9 @@ class ForgotPasswordPage(BasePage):
     def enter_email(self, email):
         self.SendKeys(email, self._email_field, locatorType="xpath")
 
+    def enter_confirm_code(self, data):
+        self.SendKeys(data, self._confirm_code, locatorType="xpath")
+
     def enter_password(self, password):
         self.SendKeys(password, self._password, locatorType="xpath")
 
@@ -49,11 +54,13 @@ class ForgotPasswordPage(BasePage):
         self.confirm_button()
 
     #def enter_new_password(self, email="", password ="", confirmPassword=""):
-    def enter_new_password(self, password="", confirmPassword=""):
+    def enter_new_password(self, code, password, confirmPassword):
         #self.enter_email(email)
+        self.enter_confirm_code(code)
+        sleep(3)
         self.enter_password(password)
         self.enter_confirm_password(confirmPassword)
-        self.confirm_button()
+        # self.confirm_button()
 
     # validation
     def validate_page_title(self, text):
@@ -64,5 +71,11 @@ class ForgotPasswordPage(BasePage):
     def validate_success_msg(self, text):
         sleep(.5)
         success_msg = self.getElement(self._success_msg, locatorType="xpath").text
+        result = self.verifyPageContainsText(success_msg, text)
+        return result
+
+    def validate_password_restored(self, text):
+        sleep(.5)
+        success_msg = self.getElement(self._password_restored, locatorType="xpath").text
         result = self.verifyPageContainsText(success_msg, text)
         return result

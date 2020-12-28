@@ -23,7 +23,9 @@ class LoginTests(unittest.TestCase):
         self.lp.login_popup()
         self.lp.login("jlmm83@hotmail.com", "test123")
         result = self.lp.verifyLoginFailed()
-        self.ts.mark(result, "error message doesn't exist")
+        self.ts.mark(result, "error message visible")
+        result2 = self.lp.verify_forgot_msg("Har du glömt ditt lösenord?")
+        self.ts.mark(result2, "forgot password msg visible")
         #result2 = self.lp.verifyErrorMsg()
         #self.ts.markFinal("test_invalidLogin", result, "error does text not visible")
 
@@ -34,7 +36,6 @@ class LoginTests(unittest.TestCase):
         self.ts.mark(email_required, "email required msg exist")
         password_required = self.lp.verifyPasswordRequired()
         self.ts.mark(password_required, "email required mesg exists")
-        # self.ts.markFinal("test_empty_field_error_msg", password_required, "password required msg doesn't exist")
 
     @pytest.mark.run(order=3)
     def test_invalid_email(self):

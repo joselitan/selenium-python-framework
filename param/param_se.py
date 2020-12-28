@@ -1,0 +1,1 @@
+return_message = "Vi har nu skickat instruktioner om hur du återställer ditt lösenord till sigmatest_st01_se_82609197@mailinator.com. Hittar du inte e-postmeddelandet? Titta i skräpposten. Fel e-postadress? Testa igen med en annan e-postadress. Om det fortfarande inte fungerar, vänligen kontakta vår kundservice på 0771-52 20 00 eller via vår chatt på viasat.se/kundservice."

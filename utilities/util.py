@@ -83,6 +83,21 @@ class Util(object):
             self.log.info("### VERIFICATION CONTAINS DOES NOT CONTAINS !!!")
             return False
 
+    def verifySumMatch(self, totalSum, expectedSum):
+        """
+        :param actualList: actualText
+        :param expectedList: expectedText
+        """
+        self.log.info("Actual text From Application Web UI --> :: " + totalSum)
+        self.log.info("Expected text from Application Web UI --> :: " + expectedSum)
+
+        if totalSum == expectedSum:
+            self.log.info("### VERIFICATION SUM SUCCESSFUL !!!")
+            return True
+        else:
+            self.log.info("### VERIFICATION SUM FAILS !!!")
+            return False
+
     def verifyTextMatch(self, actualText, expectedText):
         """
         Verify actual text contains expected text string

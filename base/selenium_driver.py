@@ -202,9 +202,10 @@ class SeleniumDriver():
                 element = self.getElement(locator, locatorType)
             if element is not None:
                 self.log.info("###Element with locator: " + locator + " and locatorType: " + locatorType + " is present")
+                return True
             else:
                 self.log.info("###Element not found with locator: " + locator + " and locatorType: " + locatorType)
-            return True
+                return False
         except:
             self.log.info("###Element not found with locator: " + locator + " and locatorType: " + locatorType)
             return False
@@ -253,6 +254,25 @@ class SeleniumDriver():
                                                      ElementNotVisibleException,
                                                      ElementNotSelectableException])
             element = wait.until(EC.element_to_be_clickable((byType,
+                                                             "stopFilter_stops-0")))
+            self.log.info("Element appeared on the web page")
+        except:
+            self.log.info("Element not appeared on the web page")
+            print_stack()
+        return element
+
+    def waitForElementVisibility(self, locator, locatorType="id", timeout=10, pollFrequency=0.5):
+
+        element = None
+        try:
+            byType = self.getByType(locatorType)
+            self.log.info("Waiting for maximum :: " + str(timeout) +
+                  " :: seconds for element to be clickable")
+            wait = WebDriverWait(self.driver, 10, poll_frequency=1,
+                                 ignored_exceptions=[NoSuchElementException,
+                                                     ElementNotVisibleException,
+                                                     ElementNotSelectableException])
+            element = wait.until(EC.visibility_of_element_located((byType,
                                                              "stopFilter_stops-0")))
             self.log.info("Element appeared on the web page")
         except:

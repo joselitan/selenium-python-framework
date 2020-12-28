@@ -35,19 +35,20 @@ class ComparisonTests(unittest.TestCase):
     #     result2 = self.cp.verify_comparison_description()
     #     self.ts.markFinal("Test_comparison_nave", result2, "verify package description")
     #
+
     @pytest.mark.run(order=2)
     def test_comparison_page(self):
         # self.cp.closeCookie()
-        self.cp.GoToPackageAndTab("Bas", "Kanalarkiv")
+        self.cp.GoToPackageAndTab("Stor", "Tv-kanaler")
         result = self.cp.verify_comparison_title()
         self.ts.mark(result, "verify package title")
         result2 = self.cp.verify_comparison_description()
         self.ts.mark(result2, "verify package title")
-        # self.cp.openAllLogos()
+        self.cp.openAllLogos()
         self.ts.markFinal("Test_comparison_nave", result2, "verify package description")
 
-    @pytest.mark.run(order=1)
-    def test_comparison_page_all(self):
-        self.cp.closeCookie()
-        self.cp.openAllPackagesTabsAndLogos()
-
+    # @pytest.mark.run(order=1)
+    # def test_comparison_page_all(self):
+    #     self.cp.closeCookie()
+    #     self.cp.openAllPackagesTabsAndLogos()
+    #

@@ -62,8 +62,11 @@ class Status(SeleniumDriver):
             self.log.error(testName +  " ### TEST FAILED")
             self.resultList.clear()
             assert True == False
+            self.log.info("===================================================================================")
         else:
             self.log.info(testName + " ### TEST SUCCESSFUL")
             self.resultList.clear()
             assert True == True
+            self.log.info("===================================================================================")
+
 

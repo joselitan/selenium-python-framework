@@ -15,7 +15,8 @@ class MailinatorPage(BasePage):
     # locator
     _email = ".//input[@placeholder='Enter Public Mailinator Inbox']"
     _go_button = "go-to-public"
-    _email_row = ".//tr[contains(@id,'row_sigmatest_st01_se')]/td/a" # Glömt ditt Viasat-lösenord på Mina Sidor
+    # _email_row = ".//tr[contains(@id,'row_sigmatest_st01_se')]/td/a" # Glömt ditt Viasat-lösenord på Mina Sidor
+    _email_row = ".//tr[contains(@id,'row_sigmatest')]/td/a"
     _url = "/html/body/div/section/p[3]"
     _change_password = "BYT LÖSENORD"
 
@@ -36,10 +37,19 @@ class MailinatorPage(BasePage):
         self.switchToDefaultContent()
 
     def retrieve_url(self):
+        """
+        :return: returns reset URL to
+        Sends confirmation code to file "confirmation_code.txt"
+        """
         self.switchToFrame(id="msg_body")
         url = self.getElement(self._url, locatorType="xpath").text
         url_string = re.findall(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+', url)
+        url_confirmation_code = re.findall(r'\d+', url)
+        code_file = open("confirmation_code.txt", "w")
+        code_file.write(str(url_confirmation_code[-1]))
+        code_file.close()
         return ''.join([str(elem) for elem in url_string])
+
 
     def navigate_to_reset_page(self):
         url = self.retrieve_url()
@@ -51,9 +61,6 @@ class MailinatorPage(BasePage):
         self.click_email_row()
         # self.click_on_activationLink()
         self.navigate_to_reset_page()
-
-    #def enter_reset_password(self):
-
 
 
 
