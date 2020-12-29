@@ -1,0 +1,1 @@
+python -m pytest -s -v tests\myPages\viasat_summerhouse_test.py --browser chrome --website https://test.viasat.se
